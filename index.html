@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Map Navigation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+        <div class="sidebar">
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="ar">Arabic</option>
+                </select>
+            </div>
+            <div class="menu">
+                <button id="search-btn">Search</button>
+                <div id="search-results" class="hidden">
+                    <input type="text" id="search-input" placeholder="Type location...">
+                    <ul id="locations-list"></ul>
+                </div>
+            </div>
+            <div id="location-info" class="hidden">
+                <h2 id="location-name"></h2>
+                <p id="location-department"></p>
+                <p id="location-address"></p>
+                <p id="location-phone"></p>
+                <p id="location-hours"></p>
+                <button id="route-btn">Get Directions</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
