@@ -1,77 +1,187 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-.container {
-    display: flex;
-    width: 90%;
-    height: 80%;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.campus-map {
+  height: 100vh;
+  width: 100%;
+  background-color: #f3f4f6;
+  position: relative;
 }
 
-.map-container {
-    flex: 3;
-    position: relative;
+.top-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 10;
 }
 
-#map {
-    width: 100%;
-    height: 100%;
-    background-color: #e0e0e0;
+.nav-button {
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background-color: #f3f4f6;
+  border-radius: 50%;
+}
+
+.dropdown {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 20;
+  display: none;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 8px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6;
 }
 
 .sidebar {
-    flex: 1;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-left: 1px solid #ddd;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  background-color: white;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: none;
 }
 
-.language-selector {
-    margin-bottom: 20px;
+.sidebar-content {
+  padding: 16px;
 }
 
-.menu {
-    margin-bottom: 20px;
+.search-bar {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
 }
 
-#search-results {
-    margin-top: 10px;
+.categories, .locations {
+  margin-top: 16px;
 }
 
-#search-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+.category, .location {
+  width: 100%;
+  padding: 8px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-#locations-list {
-    list-style-type: none;
-    padding: 0;
+.category:hover, .location:hover {
+  background-color: #f3f4f6;
+  border-radius: 8px;
 }
 
-#locations-list li {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #ddd;
+.map-container {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#locations-list li:hover {
-    background-color: #f0f0f0;
+.map-placeholder {
+  text-align: center;
+  color: #6b7280;
 }
 
-#location-info {
-    margin-top: 20px;
+.current-location {
+  font-size: 14px;
+  margin-top: 8px;
 }
 
-.hidden {
-    display: none;
+.location-info {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 10;
+  display: none;
+}
+
+.location-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.close-button {
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #f3f4f6;
+  border-radius: 50%;
+}
+
+.location-content {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.directions-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.directions-button:hover {
+  background-color: #2563eb;
+}
+
+.qr-code img {
+  width: 128px;
+  height: 128px;
 }
