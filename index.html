@@ -252,9 +252,7 @@ body {
   </div>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 <script>
-
-  document.addEventListener('DOMContentLoaded', function () {
-  // Get DOM elements
+document.addEventListener('DOMContentLoaded', function () {
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
   const languageToggle = document.getElementById('language-toggle');
@@ -264,77 +262,53 @@ body {
   const getDirections = document.getElementById('get-directions');
   const mapContainer = document.getElementById('map-container');
 
-  // Toggle sidebar visibility
+  // Toggle sidebar
   sidebarToggle.addEventListener('click', () => {
-    if (sidebar.style.display === 'block') {
-      sidebar.style.display = 'none';
-    } else {
-      sidebar.style.display = 'block';
-    }
+    sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
   });
 
-  // Toggle language selector visibility
+  // Toggle language selector
   languageToggle.addEventListener('click', () => {
-    if (languageSelector.style.display === 'block') {
-      languageSelector.style.display = 'none';
-    } else {
-      languageSelector.style.display = 'block';
-    }
+    languageSelector.style.display = languageSelector.style.display === 'block' ? 'none' : 'block';
   });
 
-  // Close location info popup
+  // Close location info
   closeInfo.addEventListener('click', () => {
     locationInfo.style.display = 'none';
   });
 
-  // Mock "Get Directions" functionality
+  // Get directions
   getDirections.addEventListener('click', () => {
     alert('Directions functionality not implemented yet.');
   });
 
-  // Initialize Leaflet Map
-  const map = L.map('map-container').setView([34.0522, -118.2437], 12); // Default center and zoom
-
-  // Add OpenStreetMap tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-  }).addTo(map);
-
-  // Add a marker for the user's location
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        L.marker([latitude, longitude]).addTo(map)
-          .bindPopup('موقعك الحالي') // Popup text in Arabic
-          .openPopup();
-        map.setView([latitude, longitude], 15); // Zoom to user's location
-      },
-      (error) => {
-        console.error('Error getting location:', error);
-      }
-    );
-  }
-
-  // Mock data for locations
-  const locations = [
-    {
-      name: 'المكتبة الرئيسية',
-      coordinates: [34.0522, -118.2437], // Example coordinates for Main Library
-    },
-    {
-      name: 'مركز الطلاب',
-      coordinates: [34.0515, -118.2425], // Example coordinates for Student Center
-    },
-  ];
-
-  // Add markers for each location
-  locations.forEach((location) => {
-    L.marker(location.coordinates).addTo(map)
-      .bindPopup(location.name); // Popup text with location name
+  // Initialize Mapbox
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXN0cmFsMjQ0NCIsImEiOiJjbTY3MGxqbWMwMDN1MmtyMGUzcjd0dGI3In0.mR3XdDZgbRcyq4sOppfSKw'; // Your Mapbox token
+  const map = new mapboxgl.Map({
+    container: 'map-container',
+    style: 'mapbox://styles/mapbox/streets-v12', // Map style
+    center: [0, 0], // Default center (will be overridden by geolocation)
+    zoom: 12, // Default zoom level
   });
 
-  // Mock location selection (show location info popup)
+  // Add geolocation control
+  const geolocateControl = new mapboxgl.GeolocateControl({
+    positionOptions: {
+      enableHighAccuracy: true, // Use high accuracy for better results
+    },
+    trackUserLocation: true, // Track the user's location
+    showUserLocation: true, // Show a marker for the user's location
+  });
+
+  map.addControl(geolocateControl);
+
+  // Automatically trigger geolocation when the map loads
+  geolocateControl.on('geolocate', (event) => {
+    const { coords } = event;
+    console.log('User location:', coords.longitude, coords.latitude);
+  });
+
+  // Mock location selection
   document.querySelectorAll('.location').forEach((location) => {
     location.addEventListener('click', () => {
       locationInfo.style.display = 'block';
