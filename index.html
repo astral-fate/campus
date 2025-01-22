@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Campus Map</title>
-<style>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+  <style>
 
-body {
+    body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -194,8 +195,7 @@ body {
   height: 128px;
 }
 
-  
-</style>
+  </style>
 </head>
 <body>
   <div class="campus-map">
@@ -238,13 +238,7 @@ body {
     </div>
 
     <!-- Main Map Area -->
-    <div id="map-container" class="map-container">
-      <div class="map-placeholder">
-        <span class="icon">🗺️</span>
-        <div>Interactive Map View</div>
-        <div id="current-location" class="current-location"></div>
-      </div>
-    </div>
+    <div id="map-container" class="map-container"></div>
 
     <!-- Location Info Popup -->
     <div id="location-info" class="location-info">
@@ -269,10 +263,10 @@ body {
       </div>
     </div>
   </div>
-  <script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+ <script>
 
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
   const languageToggle = document.getElementById('language-toggle');
@@ -280,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeInfo = document.getElementById('close-info');
   const locationInfo = document.getElementById('location-info');
   const getDirections = document.getElementById('get-directions');
-  const currentLocation = document.getElementById('current-location');
+  const mapContainer = document.getElementById('map-container');
 
   // Toggle sidebar
   sidebarToggle.addEventListener('click', () => {
@@ -302,26 +296,40 @@ document.addEventListener('DOMContentLoaded', function() {
     alert('Directions functionality not implemented yet.');
   });
 
-  // Mock current location
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        currentLocation.textContent = `Current Location: ${position.coords.longitude.toFixed(4)}, ${position.coords.latitude.toFixed(4)}`;
-      },
-      (error) => {
-        console.error('Error getting location:', error);
-      }
-    );
-  }
+  // Initialize Mapbox
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXN0cmFsMjQ0NCIsImEiOiJjbTY3MGxqbWMwMDN1MmtyMGUzcjd0dGI3In0.mR3XdDZgbRcyq4sOppfSKw'; // Your Mapbox token
+  const map = new mapboxgl.Map({
+    container: 'map-container',
+    style: 'mapbox://styles/mapbox/streets-v12', // Map style
+    center: [0, 0], // Default center (will be overridden by geolocation)
+    zoom: 12, // Default zoom level
+  });
+
+  // Add geolocation control
+  const geolocateControl = new mapboxgl.GeolocateControl({
+    positionOptions: {
+      enableHighAccuracy: true, // Use high accuracy for better results
+    },
+    trackUserLocation: true, // Track the user's location
+    showUserLocation: true, // Show a marker for the user's location
+  });
+
+  map.addControl(geolocateControl);
+
+  // Automatically trigger geolocation when the map loads
+  geolocateControl.on('geolocate', (event) => {
+    const { coords } = event;
+    console.log('User location:', coords.longitude, coords.latitude);
+  });
 
   // Mock location selection
-  document.querySelectorAll('.location').forEach(location => {
+  document.querySelectorAll('.location').forEach((location) => {
     location.addEventListener('click', () => {
       locationInfo.style.display = 'block';
     });
   });
 });
-      
-  </script>
+   
+ </script>
 </body>
 </html>
