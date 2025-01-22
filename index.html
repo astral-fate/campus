@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Campus Map</title>
+  <title>خريطة الحرم الجامعي</title>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-  <style>
-
-    body {
+ >style>
+body {
   margin: 0;
   font-family: Arial, sans-serif;
+  text-align: right; /* Align text to the right for RTL */
 }
 
 .campus-map {
@@ -60,7 +60,7 @@
 .dropdown-item {
   width: 100%;
   padding: 8px 16px;
-  text-align: left;
+  text-align: right; /* Align dropdown items to the right */
   background: none;
   border: none;
   cursor: pointer;
@@ -73,11 +73,11 @@
 .sidebar {
   position: absolute;
   top: 64px;
-  left: 0;
+  right: 0; /* Move sidebar to the right */
   bottom: 0;
   width: 320px;
   background-color: white;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1); /* Adjust shadow for RTL */
   z-index: 10;
   display: none;
 }
@@ -100,7 +100,7 @@
 .category, .location {
   width: 100%;
   padding: 8px;
-  text-align: left;
+  text-align: right; /* Align category and location text to the right */
   background: none;
   border: none;
   cursor: pointer;
@@ -118,26 +118,13 @@
   right: 0;
   bottom: 0;
   background-color: #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.map-placeholder {
-  text-align: center;
-  color: #6b7280;
-}
-
-.current-location {
-  font-size: 14px;
-  margin-top: 8px;
 }
 
 .location-info {
   position: absolute;
   bottom: 16px;
+  right: 16px; /* Move location info to the right */
   left: 16px;
-  right: 16px;
   max-width: 640px;
   margin: 0 auto;
   background-color: white;
@@ -194,8 +181,8 @@
   width: 128px;
   height: 128px;
 }
-
-  </style>
+</style>
+  
 </head>
 <body>
   <div class="campus-map">
@@ -213,26 +200,26 @@
 
     <!-- Language Selector Dropdown -->
     <div id="language-selector" class="dropdown">
-      <button class="dropdown-item">English</button>
-      <button class="dropdown-item">Arabic</button>
-      <button class="dropdown-item">Spanish</button>
-      <button class="dropdown-item">Chinese</button>
+      <button class="dropdown-item">الإنجليزية</button>
+      <button class="dropdown-item">العربية</button>
+      <button class="dropdown-item">الإسبانية</button>
+      <button class="dropdown-item">الصينية</button>
     </div>
 
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
       <div class="sidebar-content">
-        <input type="text" id="search" placeholder="Search locations..." class="search-bar">
+        <input type="text" id="search" placeholder="ابحث عن المواقع..." class="search-bar">
         <div class="categories">
-          <h3>Categories</h3>
-          <button class="category">Academic</button>
-          <button class="category">Administration</button>
-          <button class="category">Facilities</button>
+          <h3>الفئات</h3>
+          <button class="category">أكاديمي</button>
+          <button class="category">إداري</button>
+          <button class="category">مرافق</button>
         </div>
         <div class="locations">
-          <h3>Locations</h3>
-          <button class="location">Main Library</button>
-          <button class="location">Student Center</button>
+          <h3>المواقع</h3>
+          <button class="location">المكتبة الرئيسية</button>
+          <button class="location">مركز الطلاب</button>
         </div>
       </div>
     </div>
@@ -243,29 +230,28 @@
     <!-- Location Info Popup -->
     <div id="location-info" class="location-info">
       <div class="location-header">
-        <h2>Main Library</h2>
-        <p>Library Services</p>
+        <h2>المكتبة الرئيسية</h2>
+        <p>خدمات المكتبة</p>
         <button id="close-info" class="close-button">✕</button>
       </div>
       <div class="location-content">
         <div class="location-details">
-          <p><strong>Address:</strong> Building 101</p>
-          <p><strong>Phone:</strong> 123-456-7890</p>
-          <p><strong>Hours:</strong> 8:00 AM - 10:00 PM</p>
+          <p><strong>العنوان:</strong> مبنى 101</p>
+          <p><strong>الهاتف:</strong> 123-456-7890</p>
+          <p><strong>ساعات العمل:</strong> 8:00 صباحًا - 10:00 مساءً</p>
           <button id="get-directions" class="directions-button">
             <span class="icon">➤</span>
-            Get Directions
+            احصل على الاتجاهات
           </button>
         </div>
         <div class="qr-code">
-          <img src="/api/placeholder/100/100" alt="QR Code">
+          <img src="/api/placeholder/100/100" alt="رمز الاستجابة السريعة">
         </div>
       </div>
     </div>
   </div>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
- <script>
-
+<script>
 document.addEventListener('DOMContentLoaded', function () {
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
@@ -329,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-   
- </script>
+  
+</script>
 </body>
 </html>
